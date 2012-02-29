@@ -1,6 +1,6 @@
 require 'hpricot'
 
-class ResultadoSubmarino
+class BuscaNoSubmarino
     SUBMARINO_URI_QUERY = "http://www.submarino.com.br/busca?q="
     
     doc = nil
