@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'hpricot'
 
 class BuscaNoSubmarino
@@ -16,15 +18,19 @@ class BuscaNoSubmarino
     end
     
     def existem_resultados?
-        @doc.search('ul#ul_product_list1')        
+        @doc.search('ul#ul_product_list1').size > 0
     end
     
     def listar_produtos
         produtos = []
         @doc.search('ul#ul_product_list1/li/div.product').each do |p|
-            nome = (p/"span.name/strong").text
-            valor = (p/"span.for/strong").text
+            nome = p.search("span.name/strong").text
+            valor = p.search("span.for/strong").text
             
+            if p.search("span.notAvail").size > 0
+                valor = "Não disponível"
+            end
+                                    
             produtos << {:nome=>nome, :valor=>valor}
         end
         
